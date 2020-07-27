@@ -16,6 +16,7 @@ class OpenLayersWidget(Textarea):
     Render an OpenLayers map using the WKT of the geometry.
     """
     def get_context(self, name, value, attrs):
+        logger.error('get_context')
         # Update the template parameters with any attributes passed in.
         if attrs:
             self.params.update(attrs)
@@ -80,12 +81,14 @@ class OpenLayersWidget(Textarea):
 
     def map_options(self):
         """Build the map options hash for the OpenLayers template."""
+        logger.error('map_options')
+                
         # JavaScript construction utilities for the Bounds and Projection.
         def ol_bounds(extent):
             return 'new OpenLayers.Bounds(%s)' % extent
 
         def ol_projection(srid):
-            return 'new OpenLayers.Projection("EPSG:%s")' % srid
+            return 'new ol.proj.Projection("EPSG:%s")' % srid
 
         # An array of the parameter name, the name of their OpenLayers
         # counterpart, and the type of variable they are.
