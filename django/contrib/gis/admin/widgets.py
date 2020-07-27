@@ -85,7 +85,7 @@ class OpenLayersWidget(Textarea):
             return 'new OpenLayers.Bounds(%s)' % extent
 
         def ol_projection(srid):
-            return 'new OpenLayers.Projection("EPSG:%s")' % srid
+            return 'new ol.proj.Projection("EPSG:%s")' % srid
 
         # An array of the parameter name, the name of their OpenLayers
         # counterpart, and the type of variable they are.

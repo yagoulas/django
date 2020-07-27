@@ -35,7 +35,8 @@ class GeoModelAdmin(ModelAdmin):
     map_height = 400
     map_srid = 4326
     map_template = 'gis/admin/openlayers.html'
-    openlayers_url = 'https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.13.1/OpenLayers.js'
+    openlayers_url = 'https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js'
+    openlayers_css = 'https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css'
     point_zoom = num_zoom - 6
     wms_url = 'http://vmap0.tiles.osgeo.org/wms/vmap0'
     wms_layer = 'basic'
@@ -47,7 +48,8 @@ class GeoModelAdmin(ModelAdmin):
     @property
     def media(self):
         "Injects OpenLayers JavaScript into the admin."
-        return super().media + Media(js=[self.openlayers_url] + self.extra_js)
+        return super().media + Media(js=[self.openlayers_url] + self.extra_js,
+                                     css={'all': (self.openlayers_css,)})
 
     def formfield_for_dbfield(self, db_field, request, **kwargs):
         """
