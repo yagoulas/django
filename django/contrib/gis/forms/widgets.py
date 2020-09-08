@@ -80,12 +80,12 @@ class OpenLayersWidget(BaseGeometryWidget):
     class Media:
         css = {
             'all': (
-                'https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.css',
-                'gis/css/ol3.css',
+                'https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css',
+                'gis/css/ol6.css',
             )
         }
         js = (
-            'https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.js',
+            'https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js',
             'gis/js/OLMapWidget.js',
         )
 

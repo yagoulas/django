@@ -33,7 +33,8 @@ function GeometryTypeControl(opt_options) {
         element: element
     });
 };
-ol.inherits(GeometryTypeControl, ol.control.Control);
+GeometryTypeControl.prototype = Object.create(ol.control.Control.prototype);
+GeometryTypeControl.prototype.constructor = GeometryTypeControl;
 
 // TODO: allow deleting individual features (#8972)
 {
