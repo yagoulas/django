@@ -61,11 +61,15 @@ class BaseGeometryWidget(Widget):
                         value.srid, self.map_srid, err
                     )
 
+        geom_name = gdal.OGRGeomType(self.attrs['geom_type'])
+        if (geom_name == 'Unknown'):
+            geom_name = 'GeometryCollection'
+
         context.update(self.build_attrs(self.attrs, {
             'name': name,
             'module': 'geodjango_%s' % name.replace('-', '_'),  # JS-safe
             'serialized': self.serialize(value),
-            'geom_type': gdal.OGRGeomType(self.attrs['geom_type']),
+            'geom_type': geom_name,
             'STATIC_URL': settings.STATIC_URL,
             'LANGUAGE_BIDI': translation.get_language_bidi(),
             **(attrs or {}),
@@ -81,11 +85,13 @@ class OpenLayersWidget(BaseGeometryWidget):
         css = {
             'all': (
                 'https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css',
+                'https://cdn.jsdelivr.net/gh/Viglino/ol-ext@3.1.14/dist/ol-ext.min.css',
                 'gis/css/ol6.css',
             )
         }
         js = (
             'https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js',
+            'https://cdn.jsdelivr.net/gh/Viglino/ol-ext@3.1.14/dist/ol-ext.min.js',
             'gis/js/OLMapWidget.js',
         )
 
