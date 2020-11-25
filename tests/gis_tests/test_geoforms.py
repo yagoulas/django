@@ -374,10 +374,20 @@ class OSMWidgetTest(SimpleTestCase):
 class GeometryWidgetTests(SimpleTestCase):
 
     def test_get_context_attrs(self):
-        """The Widget.get_context() attrs argument overrides self.attrs."""
+        # geom_type gets transfered in the returned context
+        widget = BaseGeometryWidget(attrs={'geom_type': 'POLYGON'})
+        context = widget.get_context('point', None, None)
+        self.assertEqual(context['geom_type'], 'Polygon')
+
+        # attrs argument overrides self.attrs
         widget = BaseGeometryWidget(attrs={'geom_type': 'POINT'})
         context = widget.get_context('point', None, attrs={'geom_type': 'POINT2'})
         self.assertEqual(context['geom_type'], 'POINT2')
+
+        # Geometry geom_type gets transfered properly in the returned context
+        widget = BaseGeometryWidget(attrs={'geom_type': 'GEOMETRY'})
+        context = widget.get_context('point', None, None)
+        self.assertEqual(context['geom_type'], 'Geometry')
 
     def test_subwidgets(self):
         widget = forms.BaseGeometryWidget()
