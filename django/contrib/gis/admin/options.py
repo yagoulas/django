@@ -1,8 +1,11 @@
+import warnings
+
 from django.contrib.admin import ModelAdmin
 from django.contrib.gis.admin.widgets import OpenLayersWidget
 from django.contrib.gis.db import models
 from django.contrib.gis.gdal import OGRGeomType
 from django.forms import Media
+from django.utils.deprecation import RemovedInDjango41Warning
 
 spherical_mercator_srid = 3857
 
@@ -43,6 +46,14 @@ class GeoModelAdmin(ModelAdmin):
     wms_options = {'format': 'image/jpeg'}
     debug = False
     widget = OpenLayersWidget
+
+    def __init__(self, *args, **kwargs):
+        warnings.warn(
+            'django.contrib.gis.admin.GeoModelAdmin is deprecated '
+            'in favor of django.contrib.gis.admin.admin.GISModelAdmin.',
+            RemovedInDjango41Warning, stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)
 
     @property
     def media(self):
