@@ -3,12 +3,17 @@ from django.contrib.gis.db.models import GeometryField
 from django.contrib.gis.forms import OSMWidget
 
 
-class GISModelAdmin(ModelAdmin):
-    widget = OSMWidget
+class GeoModelAdminMixin():
+    gis_widget = OSMWidget
+    gis_widget_kwargs = {}
 
     def formfield_for_dbfield(self, db_field, request, **kwargs):
-        if isinstance(db_field, GeometryField) and db_field.dim < 3:
-            kwargs['widget'] = self.widget()
+        if isinstance(db_field, GeometryField) and (db_field.dim < 3 or self.gis_widget.supports_3d):
+            kwargs['widget'] = self.gis_widget(**self.gis_widget_kwargs)
             return db_field.formfield(**kwargs)
         else:
-            return super(ModelAdmin, self).formfield_for_dbfield(db_field, request, **kwargs)
+            return super().formfield_for_dbfield(db_field, request, **kwargs)
+
+
+class GISModelAdmin(GeoModelAdminMixin, ModelAdmin):
+    pass

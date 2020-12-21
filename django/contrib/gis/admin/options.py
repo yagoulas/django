@@ -50,7 +50,7 @@ class GeoModelAdmin(ModelAdmin):
     def __init__(self, *args, **kwargs):
         warnings.warn(
             'django.contrib.gis.admin.GeoModelAdmin is deprecated '
-            'in favor of django.contrib.gis.admin.admin.GISModelAdmin.',
+            'in favor of django.contrib.gis.admin.GISModelAdmin.',
             RemovedInDjango41Warning, stacklevel=2,
         )
         super().__init__(*args, **kwargs)
