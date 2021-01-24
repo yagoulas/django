@@ -7,5 +7,5 @@ from django.contrib.gis.admin.options import GeoModelAdmin
 __all__ = [
     'HORIZONTAL', 'VERTICAL', 'AdminSite', 'ModelAdmin', 'StackedInline',
     'TabularInline', 'autodiscover', 'register', 'site',
-    'GeoModelAdmin', 
+    'GeoModelAdmin',
 ]
